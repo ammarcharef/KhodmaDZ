@@ -8,144 +8,216 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         body { font-family: 'Tajawal', sans-serif; background-color: #f0f2f5; }
-        .ad-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .ad-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); cursor: pointer; }
         .hidden { display: none !important; }
+        /* تأثير النبض للزر المهم */
+        .pulse-btn { animation: pulse-animation 2s infinite; }
+        @keyframes pulse-animation {
+            0% { box-shadow: 0 0 0 0px rgba(16, 185, 129, 0.5); }
+            100% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+        }
     </style>
 </head>
-<body class="text-gray-800">
-
-    <div id="loader" class="fixed inset-0 bg-white z-[100] flex flex-col justify-center items-center">
-        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-emerald-600"></div>
+<body class="text-gray-800 select-none"> <div id="loader" class="fixed inset-0 bg-white z-[100] flex flex-col justify-center items-center">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-emerald-600 mb-4"></div>
+        <p class="text-gray-500 font-bold animate-pulse">جاري تأمين الاتصال...</p>
     </div>
 
     <nav class="bg-gray-900 text-white shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <i class="fa-solid fa-sack-dollar text-yellow-400 text-2xl"></i>
-                <h1 class="text-xl font-black">KhodmaDZ <span class="text-xs text-gray-400 font-normal">Ads</span></h1>
+                <h1 class="text-xl font-black tracking-wide">KhodmaDZ <span class="text-xs text-emerald-400 font-normal border border-emerald-400 px-1 rounded">PRO</span></h1>
             </div>
             
             <div id="auth-buttons">
-                <button onclick="loginWithGoogle()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-full font-bold transition">
-                    ابدأ الربح الآن
+                <button onclick="loginWithGoogle()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-full font-bold transition flex items-center gap-2 shadow-lg pulse-btn">
+                    <i class="fa-brands fa-google"></i> ابدأ الربح
                 </button>
             </div>
 
             <div id="user-nav" class="hidden flex items-center gap-3">
-                <button id="admin-btn" onclick="toggleAdminMode()" class="hidden bg-red-600 px-3 py-1 rounded text-xs">Admin</button>
-                <div class="bg-gray-800 px-4 py-1 rounded-full border border-gray-700">
-                    <span class="text-gray-400 text-xs">الرصيد:</span>
+                <button id="admin-btn" onclick="toggleAdminMode()" class="hidden bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-xs font-bold transition">Admin Panel</button>
+                
+                <div class="bg-gray-800 px-4 py-1 rounded-full border border-gray-700 flex items-center gap-2">
+                    <span class="text-gray-400 text-xs hidden md:inline">الرصيد:</span>
                     <span id="header-balance" class="font-bold text-yellow-400 text-lg">0.00</span>
                     <span class="text-xs text-yellow-400">دج</span>
                 </div>
-                <button onclick="logout()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-power-off"></i></button>
+                <button onclick="logout()" class="text-gray-400 hover:text-red-400 transition p-2" title="تسجيل خروج"><i class="fa-solid fa-power-off"></i></button>
             </div>
         </div>
     </nav>
 
     <div class="container mx-auto p-4 min-h-screen pb-20">
 
-        <div id="landing-page" class="text-center mt-16">
-            <h2 class="text-4xl font-black mb-4">اربح المال من مشاهدة الإعلانات 🇩🇿</h2>
-            <p class="text-gray-600 text-lg mb-8">نظام آلي: شاهد، نفذ، واسحب أموالك فوراً عبر Baridimob.</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                <div class="bg-white p-6 rounded-2xl shadow-sm">
+        <div id="landing-page" class="text-center mt-10 md:mt-16">
+            <div class="mb-8 relative inline-block">
+                <i class="fa-solid fa-shield-halved text-6xl text-emerald-600 mb-4"></i>
+                <div class="absolute -top-2 -right-2 bg-yellow-400 text-xs font-bold px-2 py-1 rounded-full">محمي</div>
+            </div>
+            <h2 class="text-3xl md:text-5xl font-black mb-4 text-gray-900">المنصة الجزائرية الأولى للربح من المشاهدات</h2>
+            <p class="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">نظام ذكي ومحمي. شاهد الإعلانات، نفذ العروض، واسحب أرباحك فوراً عبر Baridimob.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto px-4">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                     <i class="fa-brands fa-youtube text-4xl text-red-500 mb-3"></i>
-                    <h3 class="font-bold">مشاهدة الفيديوهات</h3>
-                    <p class="text-sm text-gray-500">اربح 5 دج لكل دقيقة مشاهدة</p>
+                    <h3 class="font-bold text-lg">مشاهدة آمنة</h3>
+                    <p class="text-sm text-gray-500">اربح المال مقابل وقتك الحقيقي</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm">
-                    <i class="fa-solid fa-gamepad text-4xl text-purple-500 mb-3"></i>
-                    <h3 class="font-bold">تجربة الألعاب</h3>
-                    <p class="text-sm text-gray-500">حمل اللعبة واوصل للمستوى 5</p>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <i class="fa-solid fa-lock text-4xl text-blue-500 mb-3"></i>
+                    <h3 class="font-bold text-lg">نظام حماية</h3>
+                    <p class="text-sm text-gray-500">حماية ضد الغش والـ VPN</p>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm">
-                    <i class="fa-solid fa-hand-holding-dollar text-4xl text-green-500 mb-3"></i>
-                    <h3 class="font-bold">سحب فوري</h3>
-                    <p class="text-sm text-gray-500">عند الوصول للحد الأدنى</p>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <i class="fa-solid fa-money-bill-transfer text-4xl text-green-500 mb-3"></i>
+                    <h3 class="font-bold text-lg">دفع مضمون</h3>
+                    <p class="text-sm text-gray-500">سحب تلقائي وسريع</p>
                 </div>
             </div>
         </div>
 
-        <div id="user-dashboard" class="hidden">
+        <div id="user-dashboard" class="hidden animate-fade-in">
             
-            <div class="flex gap-2 overflow-x-auto mb-6 pb-2">
-                <button onclick="showSection('ads')" class="nav-btn active flex-1 bg-gray-900 text-white px-4 py-3 rounded-xl font-bold whitespace-nowrap">
-                    <i class="fa-brands fa-youtube text-red-400"></i> فيديوهات وإعلانات
+            <div class="flex gap-2 overflow-x-auto mb-6 pb-2 no-scrollbar">
+                <button onclick="showSection('ads')" class="nav-btn active flex-1 bg-gray-900 text-white px-4 py-3 rounded-xl font-bold whitespace-nowrap transition-all shadow-md flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-youtube text-red-400"></i> إعلانات
                 </button>
-                <button onclick="showSection('cpa')" class="nav-btn flex-1 bg-white text-gray-600 px-4 py-3 rounded-xl font-bold whitespace-nowrap shadow-sm">
-                    <i class="fa-solid fa-list-check text-blue-500"></i> مهام الشركات (CPA)
+                <button onclick="showSection('cpa')" class="nav-btn flex-1 bg-white text-gray-600 px-4 py-3 rounded-xl font-bold whitespace-nowrap shadow-sm hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-list-check text-blue-500"></i> مهام CPA
                 </button>
-                <button onclick="showSection('wallet')" class="nav-btn flex-1 bg-white text-gray-600 px-4 py-3 rounded-xl font-bold whitespace-nowrap shadow-sm">
+                <button onclick="showSection('wallet')" class="nav-btn flex-1 bg-white text-gray-600 px-4 py-3 rounded-xl font-bold whitespace-nowrap shadow-sm hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
                     <i class="fa-solid fa-wallet text-emerald-500"></i> المحفظة
                 </button>
             </div>
 
             <div id="sec-ads" class="section-content">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="ad-card bg-white rounded-2xl shadow p-4 transition duration-300">
-                        <div class="h-32 bg-gray-200 rounded-xl mb-3 flex items-center justify-center relative overflow-hidden">
-                            <i class="fa-brands fa-youtube text-4xl text-red-500 opacity-50"></i>
-                            <span class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">5 دج</span>
-                        </div>
-                        <h3 class="font-bold mb-1">شاهد فيديو ترويجي</h3>
-                        <p class="text-xs text-gray-500 mb-4">المطلوب: مشاهدة لمدة 15 ثانية</p>
-                        <button onclick="watchAd(5, 15)" class="w-full bg-gray-900 text-white py-2 rounded-lg font-bold hover:bg-gray-800">
-                            مشاهدة الآن
-                        </button>
+                <div class="bg-yellow-50 border-r-4 border-yellow-400 p-4 rounded-lg mb-6 flex items-start gap-3">
+                    <i class="fa-solid fa-triangle-exclamation text-yellow-600 mt-1"></i>
+                    <div>
+                        <h4 class="font-bold text-sm text-yellow-800">قواعد مهمة لتجنب الحظر:</h4>
+                        <p class="text-xs text-yellow-700 mt-1">- لا تغادر الصفحة أثناء مشاهدة الإعلان.<br>- لا تستخدم VPN أو بروكسي.<br>- لا تستخدم برامج النقر التلقائي.</p>
                     </div>
-                    <div class="ad-card bg-white rounded-2xl shadow p-4 transition duration-300">
-                        <div class="h-32 bg-gray-200 rounded-xl mb-3 flex items-center justify-center relative overflow-hidden">
-                            <i class="fa-solid fa-globe text-4xl text-blue-500 opacity-50"></i>
-                            <span class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">2 دج</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div onclick="watchAd(5, 10)" class="ad-card bg-white rounded-2xl shadow p-4 border border-gray-100 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 bg-red-500 text-white text-xs px-3 py-1 rounded-bl-xl font-bold z-10">جديد</div>
+                        <div class="h-32 bg-gray-100 rounded-xl mb-3 flex items-center justify-center group-hover:bg-gray-200 transition">
+                            <i class="fa-brands fa-youtube text-5xl text-red-500 opacity-80 group-hover:scale-110 transition"></i>
                         </div>
-                        <h3 class="font-bold mb-1">زيارة موقع شريك</h3>
-                        <p class="text-xs text-gray-500 mb-4">المطلوب: تصفح الموقع لـ 10 ثواني</p>
-                        <button onclick="watchAd(2, 10)" class="w-full bg-gray-900 text-white py-2 rounded-lg font-bold hover:bg-gray-800">
-                            زيارة الرابط
-                        </button>
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold text-gray-800">فيديو ترويجي قصير</h3>
+                            <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-full">+5 دج</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-1.5 mt-2">
+                            <div class="bg-red-500 h-1.5 rounded-full" style="width: 15%"></div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 flex items-center gap-1"><i class="fa-regular fa-clock"></i> 10 ثواني</p>
+                    </div>
+
+                    <div onclick="watchAd(3, 5)" class="ad-card bg-white rounded-2xl shadow p-4 border border-gray-100 group">
+                        <div class="h-32 bg-gray-100 rounded-xl mb-3 flex items-center justify-center group-hover:bg-gray-200 transition">
+                            <i class="fa-solid fa-globe text-5xl text-blue-500 opacity-80 group-hover:scale-110 transition"></i>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold text-gray-800">زيارة موقع شريك</h3>
+                            <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-full">+3 دج</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 flex items-center gap-1"><i class="fa-regular fa-clock"></i> 5 ثواني</p>
+                    </div>
+
+                    <div onclick="watchAd(8, 20)" class="ad-card bg-white rounded-2xl shadow p-4 border border-gray-100 group">
+                        <div class="h-32 bg-gray-100 rounded-xl mb-3 flex items-center justify-center group-hover:bg-gray-200 transition">
+                            <i class="fa-solid fa-store text-5xl text-purple-500 opacity-80 group-hover:scale-110 transition"></i>
+                        </div>
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="font-bold text-gray-800">تصفح متجر إلكتروني</h3>
+                            <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded-full">+8 دج</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 flex items-center gap-1"><i class="fa-regular fa-clock"></i> 20 ثانية</p>
                     </div>
                 </div>
             </div>
 
             <div id="sec-cpa" class="section-content hidden">
-                <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl mb-4 text-center">
-                    <p class="text-sm text-blue-800">هذه المهام مقدمة من شركات راعية. يتم الدفع تلقائياً بعد التحقق.</p>
-                </div>
-                <div class="bg-white rounded-xl shadow p-6 text-center">
-                    <i class="fa-solid fa-gamepad text-5xl text-purple-200 mb-4"></i>
-                    <h3 class="font-bold text-lg">Load Mobile: المستوى 10</h3>
-                    <p class="text-gray-500 mb-4">حمل اللعبة واوصل للمستوى 10 لتحصل على المكافأة.</p>
-                    <div class="text-2xl font-black text-emerald-600 mb-4">1500 دج</div>
-                    <button onclick="simulateCPA(1500)" class="bg-purple-600 text-white px-8 py-2 rounded-full font-bold shadow-lg hover:bg-purple-700">
-                        بدء العرض
+                <div class="bg-white rounded-xl shadow-sm p-6 text-center border border-gray-100 max-w-2xl mx-auto">
+                    <div class="bg-blue-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-trophy text-3xl text-blue-600"></i>
+                    </div>
+                    <h3 class="font-bold text-xl mb-2">عرض اليوم المميز</h3>
+                    <p class="text-gray-500 mb-6">قم بتحميل لعبة "Lords Mobile" والوصول للمستوى 5 للحصول على مكافأة ضخمة.</p>
+                    
+                    <div class="flex justify-center items-center gap-4 mb-6 bg-gray-50 p-4 rounded-lg">
+                        <div class="text-center">
+                            <div class="text-xs text-gray-400">المكافأة</div>
+                            <div class="font-black text-2xl text-emerald-600">1500 دج</div>
+                        </div>
+                        <div class="h-8 w-px bg-gray-300"></div>
+                        <div class="text-center">
+                            <div class="text-xs text-gray-400">الوقت المقدر</div>
+                            <div class="font-bold text-gray-700">30 دقيقة</div>
+                        </div>
+                    </div>
+
+                    <button onclick="simulateCPA(1500)" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-200 transition">
+                        بدء العرض الآن <i class="fa-solid fa-arrow-left mr-2"></i>
                     </button>
                 </div>
             </div>
 
             <div id="sec-wallet" class="section-content hidden">
-                <div class="bg-gray-900 text-white rounded-2xl p-6 shadow-xl max-w-md mx-auto text-center">
-                    <p class="text-gray-400 text-sm">رصيدك القابل للسحب</p>
-                    <h2 class="text-4xl font-black my-2"><span id="wallet-balance">0.00</span> دج</h2>
-                    <hr class="border-gray-700 my-4">
-                    <button onclick="requestWithdraw()" class="w-full bg-emerald-500 hover:bg-emerald-600 py-3 rounded-xl font-bold shadow-lg shadow-emerald-900/50 transition">
-                        <i class="fa-solid fa-money-bill-transfer"></i> سحب الأموال الآن
+                <div class="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-3xl p-8 shadow-xl max-w-md mx-auto text-center relative overflow-hidden">
+                    <i class="fa-solid fa-wallet absolute -bottom-4 -right-4 text-9xl text-white opacity-5"></i>
+                    
+                    <p class="text-gray-400 text-sm mb-1">رصيدك القابل للسحب</p>
+                    <h2 class="text-5xl font-black mb-6 tracking-tight"><span id="wallet-balance">0.00</span> <span class="text-xl font-normal text-yellow-400">DZD</span></h2>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-white/10 rounded-lg p-2">
+                            <div class="text-xs text-gray-400">الحد الأدنى</div>
+                            <div class="font-bold">500 دج</div>
+                        </div>
+                        <div class="bg-white/10 rounded-lg p-2">
+                            <div class="text-xs text-gray-400">حالة الحساب</div>
+                            <div class="font-bold text-green-400">نشط ✅</div>
+                        </div>
+                    </div>
+
+                    <button onclick="requestWithdraw()" class="w-full bg-emerald-500 hover:bg-emerald-600 py-3 rounded-xl font-bold shadow-lg shadow-emerald-900/50 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-money-bill-transfer"></i> طلب سحب الرصيد
                     </button>
                 </div>
+
+                <div class="mt-8 text-center text-sm text-gray-500">
+                    <p>يتم معالجة السحوبات خلال 24 ساعة.</p>
+                    <div class="flex justify-center gap-4 mt-4 opacity-50">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Baridimob_Logo.png/640px-Baridimob_Logo.png" class="h-8 grayscale">
+                    </div>
+                </div>
             </div>
+
         </div>
 
-        <div id="admin-panel" class="hidden fixed inset-0 bg-gray-100 z-[60] overflow-auto p-4">
-            <div class="max-w-4xl mx-auto">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold">لوحة التحكم المالية</h2>
-                    <button onclick="toggleAdminMode()" class="bg-gray-300 px-4 py-2 rounded">خروج</button>
+        <div id="admin-panel" class="hidden fixed inset-0 bg-gray-900/95 z-[100] overflow-auto p-4 backdrop-blur-sm">
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden mt-10">
+                <div class="bg-gray-800 text-white p-4 flex justify-between items-center">
+                    <h2 class="text-xl font-bold flex items-center gap-2"><i class="fa-solid fa-shield-cat"></i> لوحة التحكم الأمنية</h2>
+                    <button onclick="toggleAdminMode()" class="bg-red-500 hover:bg-red-600 px-4 py-1 rounded text-sm font-bold">إغلاق</button>
                 </div>
-                <div class="bg-white p-4 rounded shadow">
-                    <h3 class="font-bold mb-4">طلبات السحب المعلقة (Automated Queue)</h3>
-                    <div id="admin-withdraw-list" class="space-y-2"></div>
+                
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-gray-700 border-r-4 border-blue-500 pr-3">طلبات السحب المعلقة</h3>
+                        <button onclick="loadAdminWithdrawals()" class="text-blue-600 text-sm hover:underline"><i class="fa-solid fa-rotate"></i> تحديث</button>
+                    </div>
+                    
+                    <div id="admin-withdraw-list" class="space-y-3 max-h-[60vh] overflow-y-auto pr-2">
+                        </div>
                 </div>
             </div>
         </div>
@@ -153,20 +225,30 @@
     </div>
 
     <script type="module" src="app.js"></script>
+    
     <script>
         function showSection(id) {
+            // إخفاء كل الأقسام
             document.querySelectorAll('.section-content').forEach(el => el.classList.add('hidden'));
+            // إظهار القسم المطلوب
             document.getElementById(`sec-${id}`).classList.remove('hidden');
-            // تحديث ستايل الأزرار
+            
+            // إعادة تعيين ألوان الأزرار
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.className = 'nav-btn flex-1 bg-white text-gray-600 px-4 py-3 rounded-xl font-bold whitespace-nowrap shadow-sm';
+                btn.className = 'nav-btn flex-1 bg-white text-gray-600 px-4 py-3 rounded-xl font-bold whitespace-nowrap shadow-sm hover:bg-gray-50 transition-all flex items-center justify-center gap-2';
             });
-            event.currentTarget.className = 'nav-btn active flex-1 bg-gray-900 text-white px-4 py-3 rounded-xl font-bold whitespace-nowrap';
+            
+            // تلوين الزر النشط
+            event.currentTarget.className = 'nav-btn active flex-1 bg-gray-900 text-white px-4 py-3 rounded-xl font-bold whitespace-nowrap transition-all shadow-md flex items-center justify-center gap-2';
         }
 
         function toggleAdminMode() {
-            document.getElementById('admin-panel').classList.toggle('hidden');
-            if(!document.getElementById('admin-panel').classList.contains('hidden')) window.loadAdminWithdrawals();
+            const panel = document.getElementById('admin-panel');
+            panel.classList.toggle('hidden');
+            if(!panel.classList.contains('hidden')) {
+                // استدعاء دالة التحميل من app.js
+                if(window.loadAdminWithdrawals) window.loadAdminWithdrawals();
+            }
         }
     </script>
 </body>
