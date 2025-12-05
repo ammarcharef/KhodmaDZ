@@ -161,3 +161,50 @@ window.requestWithdraw = () => {
 
     alert(`تم استلام طلب سحب ${amount} DZD عبر ${method}. سيتم التحويل خلال 24 ساعة.`);
 };
+// ============================================================
+// 6. منطقة المدير (Admin Zone)
+// ============================================================
+
+// ⚠️ ضع إيميلك هنا لتصبح أنت المدير الوحيد
+const ADMIN_EMAIL = "ضع_ايميلك_هنا@gmail.com"; 
+
+// التحقق مما إذا كان المستخدم الحالي هو المدير
+function checkAdminAccess(user) {
+    if (user.email === ADMIN_EMAIL) {
+        document.getElementById('admin-dashboard').classList.remove('hidden');
+        loadAdminData();
+    }
+}
+
+// دالة لجلب البيانات للوحة المدير
+async function loadAdminData() {
+    // 1. جلب طلبات السحب
+    // (ملاحظة: في النسخة الكاملة نحتاج إنشاء Collection اسمها 'withdrawals')
+    // سنقوم بمحاكاة البيانات هنا لترى كيف تعمل
+    const withdrawalsDiv = document.getElementById('admin-withdrawals-list');
+    withdrawalsDiv.innerHTML = `
+        <div class="flex justify-between items-center bg-gray-700 p-3 rounded">
+            <div>
+                <p class="font-bold">مستخدم: ali@gmail.com</p>
+                <p class="text-sm text-yellow-400">يريد سحب: 1000 DZD (Baridimob)</p>
+                <p class="text-xs">RIP: 00799999999999</p>
+            </div>
+            <button onclick="alert('قم بالتحويل يدوياً ثم احذف الطلب')" class="bg-green-600 px-3 py-1 rounded text-xs">تم التحويل</button>
+        </div>
+    `;
+
+    // 2. مراجعة المهام (التي حالتها 'pending_review')
+    const qTasks = query(collection(db, "tasks"), where("status", "==", "pending_review"));
+    // هنا يجب إضافة كود لجلب المهام التي تحتاج مراجعة
+}
+
+// تعديل بسيط لدالة المصادقة السابقة لتشغيل لوحة المدير
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // ... (الكود القديم الخاص بالمستخدم) ...
+        currentUser = user; // تأكد من وجود هذا السطر
+        
+        // تشغيل لوحة المدير إذا كان هو المدير
+        checkAdminAccess(user);
+    }
+});
