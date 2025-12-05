@@ -3,192 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KhodmaDZ | كسب حلال</title>
+    <title>KhodmaDZ | شاهد واربح</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
     <style>
         body { font-family: 'Tajawal', sans-serif; background-color: #f0f2f5; }
-        .glass-effect { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
+        .ad-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .hidden { display: none !important; }
-        /* تأثيرات حركية */
-        .btn-hover:hover { transform: translateY(-2px); transition: all 0.2s; }
     </style>
 </head>
 <body class="text-gray-800">
 
     <div id="loader" class="fixed inset-0 bg-white z-[100] flex flex-col justify-center items-center">
         <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-emerald-600"></div>
-        <p class="mt-4 text-emerald-800 font-bold">جاري تحميل KhodmaDZ...</p>
     </div>
 
-    <nav class="bg-gradient-to-l from-emerald-600 to-teal-700 text-white shadow-lg sticky top-0 z-50">
+    <nav class="bg-gray-900 text-white shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <i class="fa-solid fa-hand-holding-dollar text-2xl"></i>
-                <h1 class="text-xl md:text-2xl font-black tracking-wider">KhodmaDZ</h1>
+                <i class="fa-solid fa-sack-dollar text-yellow-400 text-2xl"></i>
+                <h1 class="text-xl font-black">KhodmaDZ <span class="text-xs text-gray-400 font-normal">Ads</span></h1>
             </div>
             
             <div id="auth-buttons">
-                <button onclick="loginWithGoogle()" class="bg-white text-emerald-700 px-4 py-2 rounded-full font-bold shadow hover:bg-gray-100 transition flex items-center gap-2">
-                    <i class="fa-brands fa-google"></i> دخول
+                <button onclick="loginWithGoogle()" class="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-2 rounded-full font-bold transition">
+                    ابدأ الربح الآن
                 </button>
             </div>
 
             <div id="user-nav" class="hidden flex items-center gap-3">
-                <button id="admin-btn" onclick="toggleAdminMode()" class="hidden bg-gray-900 text-yellow-400 px-3 py-1 rounded-full text-sm font-bold border border-yellow-400">
-                    <i class="fa-solid fa-user-shield"></i> إدارة
-                </button>
-                
-                <div class="bg-emerald-800 bg-opacity-50 px-3 py-1 rounded-full flex items-center gap-2">
-                    <span class="text-xs text-emerald-200">الرصيد:</span>
-                    <span id="header-balance" class="font-bold text-white">0.00</span>
-                    <span class="text-xs">دج</span>
+                <button id="admin-btn" onclick="toggleAdminMode()" class="hidden bg-red-600 px-3 py-1 rounded text-xs">Admin</button>
+                <div class="bg-gray-800 px-4 py-1 rounded-full border border-gray-700">
+                    <span class="text-gray-400 text-xs">الرصيد:</span>
+                    <span id="header-balance" class="font-bold text-yellow-400 text-lg">0.00</span>
+                    <span class="text-xs text-yellow-400">دج</span>
                 </div>
-                <button onclick="logout()" class="text-white hover:text-red-200 transition"><i class="fa-solid fa-right-from-bracket"></i></button>
+                <button onclick="logout()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-power-off"></i></button>
             </div>
         </div>
     </nav>
 
-    <div class="bg-gray-800 text-gray-300 text-center py-2 text-xs md:text-sm flex justify-center items-center gap-2">
-        <i class="fa-solid fa-chart-line text-emerald-400"></i>
-        <span id="exchange-rate-display">جاري تحديث الأسعار...</span>
-    </div>
-
     <div class="container mx-auto p-4 min-h-screen pb-20">
 
-        <div id="landing-page" class="flex flex-col items-center justify-center mt-10 text-center">
-            <img src="https://cdn-icons-png.flaticon.com/512/2830/2830305.png" alt="Money" class="w-32 h-32 mb-6 drop-shadow-lg animate-bounce">
-            <h2 class="text-3xl md:text-5xl font-black text-gray-800 mb-4">اربح المال وأنت في منزلك 🇩🇿</h2>
-            <p class="text-gray-500 text-lg mb-8 max-w-md">منصة جزائرية 100% للخدمات المصغرة. اربح رصيد فليكسي، بريدي موب، أو دولار.</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-3xl">
-                <div class="bg-white p-4 rounded-xl shadow border-b-4 border-emerald-500">
-                    <i class="fa-solid fa-check-circle text-3xl text-emerald-500 mb-2"></i>
-                    <h3 class="font-bold">حلال ومراقب</h3>
+        <div id="landing-page" class="text-center mt-16">
+            <h2 class="text-4xl font-black mb-4">اربح المال من مشاهدة الإعلانات 🇩🇿</h2>
+            <p class="text-gray-600 text-lg mb-8">نظام آلي: شاهد، نفذ، واسحب أموالك فوراً عبر Baridimob.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <i class="fa-brands fa-youtube text-4xl text-red-500 mb-3"></i>
+                    <h3 class="font-bold">مشاهدة الفيديوهات</h3>
+                    <p class="text-sm text-gray-500">اربح 5 دج لكل دقيقة مشاهدة</p>
                 </div>
-                <div class="bg-white p-4 rounded-xl shadow border-b-4 border-blue-500">
-                    <i class="fa-solid fa-bolt text-3xl text-blue-500 mb-2"></i>
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <i class="fa-solid fa-gamepad text-4xl text-purple-500 mb-3"></i>
+                    <h3 class="font-bold">تجربة الألعاب</h3>
+                    <p class="text-sm text-gray-500">حمل اللعبة واوصل للمستوى 5</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm">
+                    <i class="fa-solid fa-hand-holding-dollar text-4xl text-green-500 mb-3"></i>
                     <h3 class="font-bold">سحب فوري</h3>
-                </div>
-                <div class="bg-white p-4 rounded-xl shadow border-b-4 border-purple-500">
-                    <i class="fa-solid fa-users text-3xl text-purple-500 mb-2"></i>
-                    <h3 class="font-bold">سهل للجميع</h3>
+                    <p class="text-sm text-gray-500">عند الوصول للحد الأدنى</p>
                 </div>
             </div>
         </div>
 
-        <div id="user-dashboard" class="hidden animate-fade-in-up">
+        <div id="user-dashboard" class="hidden">
             
-            <div class="bg-white p-2 rounded-2xl shadow-sm mb-6 flex justify-between md:justify-center gap-2 overflow-x-auto">
-                <button onclick="showSection('tasks')" class="nav-btn active flex-1 md:flex-none px-6 py-2 rounded-xl text-sm font-bold bg-emerald-100 text-emerald-700 transition">
-                    <i class="fa-solid fa-list-check"></i> المهام
+            <div class="flex gap-2 overflow-x-auto mb-6 pb-2">
+                <button onclick="showSection('ads')" class="nav-btn active flex-1 bg-gray-900 text-white px-4 py-3 rounded-xl font-bold whitespace-nowrap">
+                    <i class="fa-brands fa-youtube text-red-400"></i> فيديوهات وإعلانات
                 </button>
-                <button onclick="showSection('add-task')" class="nav-btn flex-1 md:flex-none px-6 py-2 rounded-xl text-sm font-bold text-gray-500 hover:bg-gray-100 transition">
-                    <i class="fa-solid fa-bullhorn"></i> نشر إعلان
+                <button onclick="showSection('cpa')" class="nav-btn flex-1 bg-white text-gray-600 px-4 py-3 rounded-xl font-bold whitespace-nowrap shadow-sm">
+                    <i class="fa-solid fa-list-check text-blue-500"></i> مهام الشركات (CPA)
                 </button>
-                <button onclick="showSection('wallet')" class="nav-btn flex-1 md:flex-none px-6 py-2 rounded-xl text-sm font-bold text-gray-500 hover:bg-gray-100 transition">
-                    <i class="fa-solid fa-wallet"></i> المحفظة
+                <button onclick="showSection('wallet')" class="nav-btn flex-1 bg-white text-gray-600 px-4 py-3 rounded-xl font-bold whitespace-nowrap shadow-sm">
+                    <i class="fa-solid fa-wallet text-emerald-500"></i> المحفظة
                 </button>
             </div>
 
-            <div id="sec-tasks" class="section-content">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-xl font-bold text-gray-700">المهام المتاحة لك</h3>
-                    <button onclick="loadTasks()" class="text-emerald-600 text-sm"><i class="fa-solid fa-rotate"></i> تحديث</button>
-                </div>
-                <div id="tasks-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div id="sec-ads" class="section-content">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="ad-card bg-white rounded-2xl shadow p-4 transition duration-300">
+                        <div class="h-32 bg-gray-200 rounded-xl mb-3 flex items-center justify-center relative overflow-hidden">
+                            <i class="fa-brands fa-youtube text-4xl text-red-500 opacity-50"></i>
+                            <span class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">5 دج</span>
+                        </div>
+                        <h3 class="font-bold mb-1">شاهد فيديو ترويجي</h3>
+                        <p class="text-xs text-gray-500 mb-4">المطلوب: مشاهدة لمدة 15 ثانية</p>
+                        <button onclick="watchAd(5, 15)" class="w-full bg-gray-900 text-white py-2 rounded-lg font-bold hover:bg-gray-800">
+                            مشاهدة الآن
+                        </button>
                     </div>
-            </div>
-
-            <div id="sec-add-task" class="section-content hidden">
-                <div class="bg-white rounded-2xl shadow-lg p-6 max-w-2xl mx-auto border border-gray-100">
-                    <div class="text-center mb-6">
-                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <i class="fa-solid fa-bullhorn text-2xl text-blue-600"></i>
+                    <div class="ad-card bg-white rounded-2xl shadow p-4 transition duration-300">
+                        <div class="h-32 bg-gray-200 rounded-xl mb-3 flex items-center justify-center relative overflow-hidden">
+                            <i class="fa-solid fa-globe text-4xl text-blue-500 opacity-50"></i>
+                            <span class="absolute top-2 left-2 bg-green-500 text-white text-xs px-2 py-1 rounded">2 دج</span>
                         </div>
-                        <h3 class="text-xl font-bold">انشر إعلانك للجزائريين</h3>
-                        <p class="text-sm text-gray-500">احصل على متابعين أو زيارات حقيقية</p>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-1">عنوان المهمة</label>
-                            <input type="text" id="task-title" placeholder="مثال: تابع صفحتي على انستغرام" class="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-200 outline-none transition">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-700 mb-1">الوصف والرابط</label>
-                            <textarea id="task-desc" rows="3" placeholder="ضع الرابط هنا واشرح ما يجب فعله..." class="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 focus:border-emerald-500 outline-none transition"></textarea>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-1">السعر (دج)</label>
-                                <input type="number" id="task-reward" placeholder="20" class="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-bold text-gray-700 mb-1">العدد المطلوب</label>
-                                <input type="number" id="task-count" placeholder="100" class="w-full p-3 bg-gray-50 rounded-xl border border-gray-200 outline-none">
-                            </div>
-                        </div>
-                        <div class="bg-red-50 text-red-600 text-xs p-3 rounded-lg flex items-start gap-2">
-                            <i class="fa-solid fa-triangle-exclamation mt-1"></i>
-                            <p>يمنع منعاً باتاً نشر: القمار (1xbet)، الأغاني، الصور المخلة، الربا. سيتم حظر حسابك نهائياً.</p>
-                        </div>
-                        <button onclick="handleAddTask()" class="w-full bg-emerald-600 text-white py-3 rounded-xl font-bold hover:bg-emerald-700 shadow-lg shadow-emerald-200 transition btn-hover">
-                            نشر المهمة الآن
+                        <h3 class="font-bold mb-1">زيارة موقع شريك</h3>
+                        <p class="text-xs text-gray-500 mb-4">المطلوب: تصفح الموقع لـ 10 ثواني</p>
+                        <button onclick="watchAd(2, 10)" class="w-full bg-gray-900 text-white py-2 rounded-lg font-bold hover:bg-gray-800">
+                            زيارة الرابط
                         </button>
                     </div>
                 </div>
             </div>
 
-            <div id="sec-wallet" class="section-content hidden">
-                <div class="bg-gradient-to-br from-gray-900 to-gray-800 text-white rounded-3xl p-6 shadow-xl max-w-md mx-auto mb-8 relative overflow-hidden">
-                    <div class="absolute top-0 left-0 w-32 h-32 bg-white opacity-5 rounded-full -translate-x-10 -translate-y-10"></div>
-                    <div class="relative z-10 text-center">
-                        <p class="text-gray-400 text-sm mb-1">رصيدك الحالي</p>
-                        <h2 class="text-4xl font-black mb-4"><span id="wallet-balance">0.00</span> <span class="text-xl">DZD</span></h2>
-                        <div class="flex justify-center gap-4">
-                            <button onclick="openDepositModal()" class="bg-emerald-500 hover:bg-emerald-600 px-6 py-2 rounded-full font-bold text-sm transition btn-hover">
-                                <i class="fa-solid fa-plus"></i> شحن
-                            </button>
-                            <button onclick="openWithdrawModal()" class="bg-white text-gray-900 hover:bg-gray-100 px-6 py-2 rounded-full font-bold text-sm transition btn-hover">
-                                <i class="fa-solid fa-arrow-down"></i> سحب
-                            </button>
-                        </div>
-                    </div>
+            <div id="sec-cpa" class="section-content hidden">
+                <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl mb-4 text-center">
+                    <p class="text-sm text-blue-800">هذه المهام مقدمة من شركات راعية. يتم الدفع تلقائياً بعد التحقق.</p>
                 </div>
+                <div class="bg-white rounded-xl shadow p-6 text-center">
+                    <i class="fa-solid fa-gamepad text-5xl text-purple-200 mb-4"></i>
+                    <h3 class="font-bold text-lg">Load Mobile: المستوى 10</h3>
+                    <p class="text-gray-500 mb-4">حمل اللعبة واوصل للمستوى 10 لتحصل على المكافأة.</p>
+                    <div class="text-2xl font-black text-emerald-600 mb-4">1500 دج</div>
+                    <button onclick="simulateCPA(1500)" class="bg-purple-600 text-white px-8 py-2 rounded-full font-bold shadow-lg hover:bg-purple-700">
+                        بدء العرض
+                    </button>
+                </div>
+            </div>
 
-                <div class="max-w-md mx-auto">
-                    <h3 class="font-bold text-gray-700 mb-3">آخر العمليات</h3>
-                    <div class="bg-white rounded-xl shadow-sm p-4 text-center text-gray-500 text-sm">
-                        لا توجد عمليات حديثة
-                    </div>
+            <div id="sec-wallet" class="section-content hidden">
+                <div class="bg-gray-900 text-white rounded-2xl p-6 shadow-xl max-w-md mx-auto text-center">
+                    <p class="text-gray-400 text-sm">رصيدك القابل للسحب</p>
+                    <h2 class="text-4xl font-black my-2"><span id="wallet-balance">0.00</span> دج</h2>
+                    <hr class="border-gray-700 my-4">
+                    <button onclick="requestWithdraw()" class="w-full bg-emerald-500 hover:bg-emerald-600 py-3 rounded-xl font-bold shadow-lg shadow-emerald-900/50 transition">
+                        <i class="fa-solid fa-money-bill-transfer"></i> سحب الأموال الآن
+                    </button>
                 </div>
             </div>
         </div>
 
-        <div id="admin-panel" class="hidden bg-gray-100 min-h-screen fixed inset-0 z-[60] overflow-auto">
-            <div class="bg-gray-900 text-white p-4 sticky top-0 flex justify-between items-center shadow-lg">
-                <h2 class="text-xl font-bold text-yellow-400"><i class="fa-solid fa-user-shield"></i> لوحة المدير</h2>
-                <button onclick="toggleAdminMode()" class="text-sm bg-gray-700 px-3 py-1 rounded hover:bg-gray-600">عودة للموقع</button>
-            </div>
-            
-            <div class="container mx-auto p-4 grid md:grid-cols-2 gap-6">
-                <div class="bg-white rounded-xl shadow p-4">
-                    <h3 class="font-bold text-lg mb-4 border-b pb-2 flex justify-between">
-                        مراجعة المهام
-                        <span id="admin-proofs-count" class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">0</span>
-                    </h3>
-                    <div id="admin-proofs-list" class="space-y-3"></div>
+        <div id="admin-panel" class="hidden fixed inset-0 bg-gray-100 z-[60] overflow-auto p-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold">لوحة التحكم المالية</h2>
+                    <button onclick="toggleAdminMode()" class="bg-gray-300 px-4 py-2 rounded">خروج</button>
                 </div>
-
-                <div class="bg-white rounded-xl shadow p-4">
-                    <h3 class="font-bold text-lg mb-4 border-b pb-2 flex justify-between">
-                        طلبات السحب
-                        <span id="admin-withdraw-count" class="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">0</span>
-                    </h3>
-                    <div id="admin-withdrawals-list" class="space-y-3"></div>
+                <div class="bg-white p-4 rounded shadow">
+                    <h3 class="font-bold mb-4">طلبات السحب المعلقة (Automated Queue)</h3>
+                    <div id="admin-withdraw-list" class="space-y-2"></div>
                 </div>
             </div>
         </div>
@@ -197,27 +154,19 @@
 
     <script type="module" src="app.js"></script>
     <script>
-        // دوال للتحكم في الواجهة (UI Logic Only)
-        function showSection(secId) {
+        function showSection(id) {
             document.querySelectorAll('.section-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`sec-${secId}`).classList.remove('hidden');
-            
-            // تحديث ألوان الأزرار
+            document.getElementById(`sec-${id}`).classList.remove('hidden');
+            // تحديث ستايل الأزرار
             document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('bg-emerald-100', 'text-emerald-700');
-                btn.classList.add('text-gray-500', 'hover:bg-gray-100');
+                btn.className = 'nav-btn flex-1 bg-white text-gray-600 px-4 py-3 rounded-xl font-bold whitespace-nowrap shadow-sm';
             });
-            event.currentTarget.classList.remove('text-gray-500', 'hover:bg-gray-100');
-            event.currentTarget.classList.add('bg-emerald-100', 'text-emerald-700');
+            event.currentTarget.className = 'nav-btn active flex-1 bg-gray-900 text-white px-4 py-3 rounded-xl font-bold whitespace-nowrap';
         }
 
         function toggleAdminMode() {
-            const adminPanel = document.getElementById('admin-panel');
-            adminPanel.classList.toggle('hidden');
-            if(!adminPanel.classList.contains('hidden')) {
-                // استدعاء دالة تحميل بيانات المدير من app.js
-                window.refreshAdminData(); 
-            }
+            document.getElementById('admin-panel').classList.toggle('hidden');
+            if(!document.getElementById('admin-panel').classList.contains('hidden')) window.loadAdminWithdrawals();
         }
     </script>
 </body>
