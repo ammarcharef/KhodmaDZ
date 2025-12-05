@@ -13,7 +13,7 @@
 </head>
 <body>
 
-    <nav class="bg-emerald-600 text-white p-4 shadow-lg">
+    <nav class="bg-emerald-600 text-white p-4 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold">KhodmaDZ 🇩🇿</h1>
             <div id="user-info" class="hidden flex items-center gap-4">
@@ -28,7 +28,7 @@
         <span id="exchange-rate-display">جاري جلب سعر الصرف العالمي...</span>
     </div>
 
-    <div class="container mx-auto p-4">
+    <div class="container mx-auto p-4 min-h-screen">
 
         <div id="login-section" class="text-center mt-10">
             <h2 class="text-3xl font-bold mb-4">منصة الخدمات المصغرة الحلال في الجزائر</h2>
@@ -44,11 +44,12 @@
         </div>
 
         <div id="dashboard-section" class="hidden">
+            
             <div class="bg-yellow-50 p-4 rounded border border-yellow-200 mb-4 text-center">
-    <h3 class="font-bold text-yellow-800">تريد نشر مهام؟ اشحن رصيدك</h3>
-    <p class="text-sm text-gray-600 mb-2">أرسل المبلغ عبر Baridimob إلى: 007999999999999999</p>
-    <button onclick="alert('أرسل صورة الوصل وإيميلك إلى واتساب الإدارة: 0550000000 ليتم شحن حسابك')" class="bg-yellow-600 text-white px-4 py-2 rounded font-bold hover:bg-yellow-700">تأكيد الإيداع</button>
-</div>
+                <h3 class="font-bold text-yellow-800">تريد نشر مهام؟ اشحن رصيدك</h3>
+                <p class="text-sm text-gray-600 mb-2">أرسل المبلغ عبر Baridimob إلى: <span class="font-bold">007999999999999999</span></p>
+                <button onclick="alert('أرسل صورة الوصل وإيميلك إلى واتساب الإدارة: 0550000000 ليتم شحن حسابك')" class="bg-yellow-600 text-white px-4 py-2 rounded font-bold hover:bg-yellow-700">تأكيد الإيداع</button>
+            </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                 <div class="bg-white p-4 rounded shadow border-r-4 border-emerald-500">
@@ -57,7 +58,7 @@
                 </div>
                 <div class="bg-white p-4 rounded shadow border-r-4 border-blue-500">
                     <h3 class="text-gray-500">المهام المنجزة</h3>
-                    <p class="text-2xl font-bold">0</p>
+                    <p class="text-2xl font-bold" id="dash-tasks-count">0</p>
                 </div>
                 <div class="bg-white p-4 rounded shadow border-r-4 border-purple-500">
                     <h3 class="text-gray-500">سعر الصرف (USD)</h3>
@@ -65,10 +66,10 @@
                 </div>
             </div>
 
-            <div class="flex border-b mb-4">
-                <button onclick="showTab('tasks')" class="px-4 py-2 text-emerald-600 font-bold border-b-2 border-emerald-600">المهام المتاحة</button>
-                <button onclick="showTab('add-task')" class="px-4 py-2 text-gray-600 hover:text-emerald-600">إضافة مهمة (معلن)</button>
-                <button onclick="showTab('withdraw')" class="px-4 py-2 text-gray-600 hover:text-emerald-600">سحب الأرباح</button>
+            <div class="flex border-b mb-4 overflow-x-auto">
+                <button onclick="showTab('tasks')" class="px-4 py-2 text-emerald-600 font-bold border-b-2 border-emerald-600 whitespace-nowrap">المهام المتاحة</button>
+                <button onclick="showTab('add-task')" class="px-4 py-2 text-gray-600 hover:text-emerald-600 whitespace-nowrap">إضافة مهمة (معلن)</button>
+                <button onclick="showTab('withdraw')" class="px-4 py-2 text-gray-600 hover:text-emerald-600 whitespace-nowrap">سحب الأرباح</button>
             </div>
 
             <div id="tab-tasks" class="tab-content">
@@ -78,7 +79,7 @@
 
             <div id="tab-add-task" class="tab-content hidden">
                 <div class="bg-white p-6 rounded shadow max-w-2xl mx-auto">
-                    <h3 class="text-xl font-bold mb-4">نشر مهمة جديدة (فلترة آلية للمحتوى المخالف)</h3>
+                    <h3 class="text-xl font-bold mb-4">نشر مهمة جديدة</h3>
                     <input type="text" id="task-title" placeholder="عنوان المهمة (مثال: اشترك في قناتي)" class="w-full p-2 border rounded mb-3">
                     <textarea id="task-desc" placeholder="وصف المهمة والرابط" class="w-full p-2 border rounded mb-3"></textarea>
                     <div class="flex gap-4 mb-3">
@@ -86,7 +87,7 @@
                         <input type="number" id="task-count" placeholder="العدد المطلوب" class="w-1/2 p-2 border rounded">
                     </div>
                     <p class="text-xs text-red-500 mb-4">* سيتم رفض أي مهمة تحتوي على كلمات: قمار، ربا، تعارف، موسيقى.</p>
-                    <button onclick="addTask()" class="w-full bg-emerald-600 text-white py-2 rounded font-bold hover:bg-emerald-700">نشر المهمة والدفع</button>
+                    <button onclick="addTask()" class="w-full bg-emerald-600 text-white py-2 rounded font-bold hover:bg-emerald-700">نشر المهمة</button>
                 </div>
             </div>
 
@@ -105,31 +106,29 @@
             </div>
 
         </div>
-    </div>
-<div id="admin-dashboard" class="hidden bg-gray-900 text-white p-6 mt-10 border-t-4 border-red-500">
-        <h2 class="text-3xl font-bold mb-6 text-red-400">لوحة القيادة (Admin Control) 🔐</h2>
-        
-        <div class="grid md:grid-cols-2 gap-8">
+
+        <div id="admin-dashboard" class="hidden mt-12 mb-12 border-t-4 border-red-500 bg-gray-900 text-white p-6 rounded-lg">
+            <h2 class="text-3xl font-bold mb-6 text-red-400 flex items-center gap-2">
+                <span>🔐</span> لوحة القيادة (Admin Control)
+            </h2>
             
-            <div class="bg-gray-800 p-4 rounded">
-                <h3 class="font-bold text-xl mb-4 border-b pb-2">طلبات شحن الرصيد (Pending Deposits)</h3>
-                <div id="admin-deposits-list" class="space-y-3">
-                    <p class="text-gray-400 text-sm">جاري التحميل...</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-800 p-4 rounded">
+                    <h3 class="font-bold text-xl mb-4 border-b border-gray-600 pb-2">مراجعة إثباتات المهام</h3>
+                    <div id="admin-proofs-list" class="space-y-3 max-h-60 overflow-y-auto">
+                        <p class="text-gray-400 text-sm">لا توجد إثباتات جديدة...</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 p-4 rounded">
+                    <h3 class="font-bold text-xl mb-4 border-b border-gray-600 pb-2">طلبات السحب</h3>
+                    <div id="admin-withdrawals-list" class="space-y-3 max-h-60 overflow-y-auto">
+                        <p class="text-gray-400 text-sm">لا توجد طلبات سحب...</p>
+                    </div>
                 </div>
             </div>
-
-            <div class="bg-gray-800 p-4 rounded">
-                <h3 class="font-bold text-xl mb-4 border-b pb-2">مراجعة المهام (Task Proofs)</h3>
-                <div id="admin-tasks-review" class="space-y-3">
-                    </div>
-            </div>
-
-            <div class="bg-gray-800 p-4 rounded col-span-2">
-                <h3 class="font-bold text-xl mb-4 border-b pb-2">طلبات السحب (Withdrawals)</h3>
-                <div id="admin-withdrawals-list" class="space-y-3">
-                    </div>
-            </div>
         </div>
+
     </div>
 
     <script type="module" src="app.js"></script>
@@ -137,6 +136,16 @@
         function showTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            // تغيير تنسيق الأزرار
+            document.querySelectorAll('button').forEach(btn => {
+                if(btn.parentNode.classList.contains('border-b')) {
+                    btn.classList.remove('border-b-2', 'border-emerald-600', 'text-emerald-600');
+                    btn.classList.add('text-gray-600');
+                }
+            });
+            // تمييز الزر النشط (تقريبي)
+            event.target.classList.add('border-b-2', 'border-emerald-600', 'text-emerald-600');
+            event.target.classList.remove('text-gray-600');
         }
     </script>
 </body>
