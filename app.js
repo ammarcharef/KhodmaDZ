@@ -166,7 +166,7 @@ window.requestWithdraw = () => {
 // ============================================================
 
 // ⚠️ ضع إيميلك هنا لتصبح أنت المدير الوحيد
-const ADMIN_EMAIL = "ضع_ايميلك_هنا@gmail.com"; 
+const ADMIN_EMAIL = "ammarcharef2006@gmail.com"; 
 
 // التحقق مما إذا كان المستخدم الحالي هو المدير
 function checkAdminAccess(user) {
