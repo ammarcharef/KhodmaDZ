@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhodmaDZ | اربح المال الحلال</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #f3f4f6; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <nav class="bg-emerald-600 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">KhodmaDZ 🇩🇿</h1>
+            <div id="user-info" class="hidden flex items-center gap-4">
+                <span id="user-balance" class="bg-white text-emerald-800 px-3 py-1 rounded-full font-bold">0.00 DZD</span>
+                <button onclick="logout()" class="text-sm bg-red-500 px-3 py-1 rounded hover:bg-red-600">خروج</button>
+            </div>
+            <button id="login-btn" onclick="loginWithGoogle()" class="bg-white text-emerald-600 px-4 py-2 rounded font-bold hover:bg-gray-100">دخول (Google)</button>
+        </div>
+    </nav>
+
+    <div class="bg-gray-800 text-white text-center py-1 text-sm">
+        <span id="exchange-rate-display">جاري جلب سعر الصرف العالمي...</span>
+    </div>
+
+    <div class="container mx-auto p-4">
+
+        <div id="login-section" class="text-center mt-10">
+            <h2 class="text-3xl font-bold mb-4">منصة الخدمات المصغرة الحلال في الجزائر</h2>
+            <p class="text-gray-600 mb-6">اربح المال من خلال مهام بسيطة، سحب عبر Baridimob و Flexy و RedotPay.</p>
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
+                <h3 class="font-bold mb-2">لماذا نحن؟</h3>
+                <ul class="text-right list-disc pr-5 text-gray-700">
+                    <li>أرباح حلال 100% (نظام فلترة).</li>
+                    <li>دفع بالدينار الجزائري والدولار.</li>
+                    <li>بدون رسوم تسجيل.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="dashboard-section" class="hidden">
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-white p-4 rounded shadow border-r-4 border-emerald-500">
+                    <h3 class="text-gray-500">رصيدك الحالي</h3>
+                    <p class="text-2xl font-bold" id="dash-balance">0 DZD</p>
+                </div>
+                <div class="bg-white p-4 rounded shadow border-r-4 border-blue-500">
+                    <h3 class="text-gray-500">المهام المنجزة</h3>
+                    <p class="text-2xl font-bold">0</p>
+                </div>
+                <div class="bg-white p-4 rounded shadow border-r-4 border-purple-500">
+                    <h3 class="text-gray-500">سعر الصرف (USD)</h3>
+                    <p class="text-2xl font-bold" id="dash-rate">loading...</p>
+                </div>
+            </div>
+
+            <div class="flex border-b mb-4">
+                <button onclick="showTab('tasks')" class="px-4 py-2 text-emerald-600 font-bold border-b-2 border-emerald-600">المهام المتاحة</button>
+                <button onclick="showTab('add-task')" class="px-4 py-2 text-gray-600 hover:text-emerald-600">إضافة مهمة (معلن)</button>
+                <button onclick="showTab('withdraw')" class="px-4 py-2 text-gray-600 hover:text-emerald-600">سحب الأرباح</button>
+            </div>
+
+            <div id="tab-tasks" class="tab-content">
+                <div id="tasks-container" class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    </div>
+            </div>
+
+            <div id="tab-add-task" class="tab-content hidden">
+                <div class="bg-white p-6 rounded shadow max-w-2xl mx-auto">
+                    <h3 class="text-xl font-bold mb-4">نشر مهمة جديدة (فلترة آلية للمحتوى المخالف)</h3>
+                    <input type="text" id="task-title" placeholder="عنوان المهمة (مثال: اشترك في قناتي)" class="w-full p-2 border rounded mb-3">
+                    <textarea id="task-desc" placeholder="وصف المهمة والرابط" class="w-full p-2 border rounded mb-3"></textarea>
+                    <div class="flex gap-4 mb-3">
+                        <input type="number" id="task-reward" placeholder="سعر المهمة (DZD)" class="w-1/2 p-2 border rounded">
+                        <input type="number" id="task-count" placeholder="العدد المطلوب" class="w-1/2 p-2 border rounded">
+                    </div>
+                    <p class="text-xs text-red-500 mb-4">* سيتم رفض أي مهمة تحتوي على كلمات: قمار، ربا، تعارف، موسيقى.</p>
+                    <button onclick="addTask()" class="w-full bg-emerald-600 text-white py-2 rounded font-bold hover:bg-emerald-700">نشر المهمة والدفع</button>
+                </div>
+            </div>
+
+            <div id="tab-withdraw" class="tab-content hidden">
+                <div class="bg-white p-6 rounded shadow max-w-md mx-auto">
+                    <h3 class="text-xl font-bold mb-4">طلب سحب الرصيد</h3>
+                    <select id="withdraw-method" class="w-full p-2 border rounded mb-3">
+                        <option value="flexy">Flexy (Min 500 DZD)</option>
+                        <option value="baridimob">Baridimob (Min 2000 DZD)</option>
+                        <option value="redotpay">RedotPay (USD)</option>
+                    </select>
+                    <input type="text" id="withdraw-info" placeholder="رقم الهاتف أو RIP أو ID" class="w-full p-2 border rounded mb-3">
+                    <input type="number" id="withdraw-amount" placeholder="المبلغ المراد سحبه" class="w-full p-2 border rounded mb-3">
+                    <button onclick="requestWithdraw()" class="w-full bg-blue-600 text-white py-2 rounded font-bold hover:bg-blue-700">إرسال الطلب</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+    <script>
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
